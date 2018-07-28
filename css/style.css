@@ -520,18 +520,18 @@ div.name-list{
   padding: 5px 15px;
 }
 
-div.name-list p.name, p.action,p.image-icon{
+p.name, p.action,p.image-icon{
   font-size: 14px;
-  padding: 10px 0 0 10px;
+  padding: 10px 0 0 0;
 }
 /*
 p.name{
 
 } */
-
+/*
 div.name-list p.phone{
   font-size: 10px;
-}
+} */
 
 input.radio-button-left{
   width: 30px !important;
@@ -573,7 +573,7 @@ tr.table_header td{
 }
 
 tr.network_entries{
-  background: #FAFAFA;
+  /* background: #FAFAFA; */
   padding: 10px 5px;
   border-bottom: #FFF solid 2px;
   border-top: #FFF solid 2px;
@@ -584,7 +584,19 @@ tr.network_entries td{
 }
 
 tr.network_entries.pledged{
-  background: #FFF8E1;
+  border-bottom: 3px solid #FFC107;
+}
+
+td.color_status{
+  text-align: center;
+}
+
+.pledged td.color_status{
+  background: #F1F1F1;  
+}
+
+.pledged td.color_status.overdue{
+  background: #FF5722;
 }
 
 tr.network_entries.disagreed{

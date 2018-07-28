@@ -29,19 +29,42 @@ $time =  date('Y-m-d H:i:s');
 
                 <!-- Hidden Fields -->
                 <input type="hidden" name="network_id" value="<?php echo $network_info['id'] ?>">
+                <input type="hidden" name="pledge_type" id="pledge_type" value="<?php echo $network_info['pledge_type'] ?>">
+
+                <?php
+
+                  $nach_display='';
+                  $online_display='';
+                  $cash_display='';
+
+                  switch ($network_info['pledge_type']) {
+                    case 'nach':
+                      $nach_display = 'style="display:block"';
+                      break;
+                    case 'online':
+                      $online_display = 'style="display:block"';
+                      break;
+                    case 'cash-cheque':
+                      $cash_display = 'style="display:block"';
+                      break;
+                    default:
+                      break;
+                  }
+
+                ?>
 
                 <h2 class="fs-title">Pledge from: <?php echo $network_info['name']; ?></h2>
                 <hr>
                 <p class="form-label">Select the type of Pledge <span class="required">*</span></p>
                 <div class="btn-group btn-group-justified" role="group" aria-label="...">
                   <div class="btn-group" role="group">
-                    <button type="button" id="nach" class="btn pledge btn-default">NACH</button>
+                    <button type="button" id="nach" class="btn pledge btn-default <?php if($network_info['pledge_type']=='nach') echo 'active'; ?>" >NACH</button>
                   </div>
                   <div class="btn-group" role="group">
-                    <button type="button" id="online" class="btn pledge btn-default">Online</button>
+                    <button type="button" id="online" class="btn pledge btn-default <?php if($network_info['pledge_type']=='online') echo 'active'; ?>" >Online</button>
                   </div>
                   <div class="btn-group" role="group">
-                    <button type="button" id="cash-cheque" class="btn pledge btn-default">Cash/Cheque</button>
+                    <button type="button" id="cash-cheque" class="btn pledge btn-default <?php if($network_info['pledge_type']=='cash-cheque') echo 'active'; ?>" >Cash/Cheque</button>
                   </div>
                 </div>
                 <hr>
@@ -55,8 +78,7 @@ $time =  date('Y-m-d H:i:s');
 
                 <hr>
 
-                <div class="hidden_div nach cash-cheque">
-
+                <div class="hidden_div nach cash-cheque" <?php echo $nach_display;  echo $cash_display?> >
                   <p class="form-label">Form Collection <span class="required">*</span> </p>
                   <?php echo create_select($collection, 'collection_by',$network_info['collection_by']) ?>
 
@@ -87,10 +109,13 @@ $time =  date('Y-m-d H:i:s');
                 </div>
 
 
-                <div class="hidden_div online">
+                <div class="hidden_div online" <?php echo $online_display;?>>
 
                   <p class="form-label">Follow Up Date <span class="required">*</span></p>
-                  <input type="date" name="follow_up_on" min="<?php echo date('Y-m-d');?>" /><br>
+                  <input type="date" name="follow_up_on" min="<?php echo date('Y-m-d');?>" value="<?php
+                      if($network_info['follow_up_on']!=NULL)
+                      echo date('Y-m-d',strtotime($network_info['follow_up_on']));
+                  ?>"/><br>
 
                 </div>
 

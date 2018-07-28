@@ -16,7 +16,8 @@
   if(isset($_POST['donor_address']) && $_POST['donor_address']!='')  $data['address'] = $_POST['donor_address'];
   if(isset($_POST['donor_pincode']) && $_POST['donor_address']!='')  $data['address'] .= ' PIN: '.$_POST['donor_pincode'];
   if(isset($_POST['collection_by']))  $data['collection_by'] = $_POST['collection_by'];
-  if(isset($_POST['collect_on']))  $data['collect_on'] = date('Y-m-d H:i:s',strtotime($_POST['collect_on']));
+  if(isset($_POST['collect_on']) && $_POST['collect_on'] != '')  $data['collect_on'] = date('Y-m-d H:i:s',strtotime($_POST['collect_on']));
+  if(isset($_POST['follow_up_on']) && $_POST['collect_on'] != '')  $data['follow_up_on'] = date('Y-m-d H:i:s',strtotime($_POST['follow_up_on']));
 
   $data['added_on'] = date('Y-m-d H:i:s');
 

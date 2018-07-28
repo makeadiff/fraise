@@ -135,6 +135,11 @@
       return $id;
     }
 
+    function update_status($id,$status){
+      $this->sql->update('Donut_Network',array('donor_status'=>$status),'id='.$id);
+      return $id;
+    }
+
     function update_pledge_info($id,$data){
       $this->sql->update('Donut_Network',$data,'id='.$id);
       return $id;

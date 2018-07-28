@@ -10,11 +10,9 @@
 
 
   $network_info = $fraise->get_network($network_id);
+  // dump($network_info);
 
   // $network_data = $fraise->get_network_info($user_id);
-
-
-
 
   render();
 ?>

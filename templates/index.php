@@ -51,24 +51,29 @@
                 <div class="tab-content">
                     <!-- My Network -->
                     <div class="tab-pane fade in active" id="my_network">
-                      <table width=100%>
+                      <table width="100%">
                         <thead>
                           <tr class="table_header">
-                            <td width="60%">Name</td>
-                            <td width="20%">Pledge Status</td>
-                            <td width="20%">Actions</td>
+                            <td width="10%"></td>
+                            <td width="50%">Name</td>
+                            <td width="25%">Pledge Status</td>
+                            <td width="15%">Actions</td>
                           </tr>
                         </thead>
                         <?php
                           foreach ($network_data as $key => $value) {
                         ?>
                           <tr class="network_entries <?php echo $value['donor_status']; ?>">
-                            <td>
+                            <td class="color_status">
                               <p class="name">
                                 <a href="tel:<?php echo $value['phone']?>">
                                   <img src="<?php echo $config['site_home'] ?>img/call.png" height="25px"/>
                                 </a>
-                                <a href="<?php echo $config['site_home']?>/add_donor.php?network_id=<?php echo $value['id'];?>"><?php echo $value['name'] ?></a></p>
+                            </td>
+                            <td>
+                              <p class="name">
+                                <a href="<?php echo $config['site_home']?>/add_donor.php?network_id=<?php echo $value['id'];?>"><?php echo $value['name'] ?></a>
+                              </p>
                             </td>
                             <td>
                               <p class="action"><a href="<?php echo $config['site_home']?>pledge.php?network_id=<?php echo $value['id'] ?>">
@@ -85,9 +90,15 @@
                               </a></p>
                             </td>
                             <td>
-                              <p class="image-icon"><a href="<?php $config['site_home']?>delete_donor.php?network_id=<?php echo $value['id'] ?>">
-                                <img src="<?php echo $config['site_home'] ?>img/delete.png" height="15px"/>
-                              </a></p>
+                              <p class="image-icon">
+                                <a title="Delete Donor" href="<?php $config['site_home']?>update_status.php?action=delete&network_id=<?php echo $value['id'] ?>">
+                                  <img src="<?php echo $config['site_home'] ?>img/delete.png" height="15px" alt="Delete Donor"/>
+                                </a>
+                                &nbsp;
+                                <a title="Donor Disagreed" href="<?php $config['site_home']?>update_status.php?action=disagreed&network_id=<?php echo $value['id'] ?>">
+                                  <img src="<?php echo $config['site_home'] ?>img/disagree.png" height="18px" alt="Donor Disagreed"/>
+                                </a>
+                              </p>
                             </td>
                           </tr>
                         <?php
@@ -97,28 +108,39 @@
                     </div>
                     <!-- Pending Collection -->
                     <div class="tab-pane fade" id="pledged">
-                      <table width=100%>
+                      <table width="100%">
                         <thead>
                           <tr class="table_header">
-                            <td width="60%">Name</td>
-                            <td width="20%">Pledge Status</td>
-                            <td width="20%">Actions</td>
+                            <td width="10%"></td>
+                            <td width="50%">Name</td>
+                            <td width="25%">Amount Pledged</td>
+                            <td width="15%">Actions</td>
                           </tr>
                         </thead>
                         <?php
                           foreach ($network_data as $key => $value) {
                             if($value['donor_status']=='pledged'){
+                              if($value['collect_on']>date('Y-m-d H:i:s')){
+                                $overdue = 'overdue';
+                              }
+                              else{
+                                $overdue = '';
+                              }
                         ?>
                           <tr class="network_entries <?php echo $value['donor_status']; ?>">
-                            <td>
+                            <td class="color_status <?php echo $overdue; ?>">
                               <p class="name">
-                                <a href="tel:<?php echo $value['phone']?>">
-                                  <img src="<?php echo $config['site_home'] ?>img/call.png" height="25px"/>
-                                </a>
-                                <a href="<?php echo $config['site_home']?>/add_donor.php?network_id=<?php echo $value['id'];?>"><?php echo $value['name'] ?></a></p>
+                                <!-- <a href="tel:<?php //echo $value['phone']?>">
+                                  <img src="<?php //echo $config['site_home'] ?>img/call.png" height="25px"/>
+                                </a> -->
                             </td>
                             <td>
-                              <p class="action"><a href="<?php echo $config['site_home']?>pledge.php?network_id=<?php echo $value['id'] ?>">
+                              <p class="name">
+                                <a href="<?php echo $config['site_home']?>/add_donor.php?network_id=<?php echo $value['id'];?>"><?php echo $value['name'] ?></a>
+                              </p>
+                            </td>
+                            <td>
+                              <p class="action <?php echo $overdue; ?>"><a href="<?php echo $config['site_home']?>pledge.php?network_id=<?php echo $value['id'] ?>">
                                 <?php
                                   if($value['pledged_amount']!=''){
                                     echo '&#8377;'.$value['pledged_amount'];
@@ -142,7 +164,7 @@
                           }
                         ?>
                     </div>
-                    <div class="tab-pane fade" id="tab3default">Default 3</div>
+                    <!-- <div class="tab-pane fade" id="tab3default">Default 3</div> -->
                 </div>
               </div>
               <?php

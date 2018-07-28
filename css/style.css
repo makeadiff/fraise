@@ -555,6 +555,10 @@ p.more_details{
   font-size: 13px;
 }
 
+p.overdue_status{
+  color: #FFF;
+}
+
 button.pledge.active, button.pledge:hover, button.pledge.active:hover{
   background: #FFA726;
   color: #FFF;
@@ -592,7 +596,7 @@ td.color_status{
 }
 
 .pledged td.color_status{
-  background: #F1F1F1;  
+  background: #F1F1F1;
 }
 
 .pledged td.color_status.overdue{

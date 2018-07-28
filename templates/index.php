@@ -120,7 +120,7 @@
                         <?php
                           foreach ($network_data as $key => $value) {
                             if($value['donor_status']=='pledged'){
-                              if($value['collect_on']>date('Y-m-d H:i:s')){
+                              if($value['collect_on']<date('Y-m-d H:i:s')){
                                 $overdue = 'overdue';
                               }
                               else{
@@ -129,10 +129,9 @@
                         ?>
                           <tr class="network_entries <?php echo $value['donor_status']; ?>">
                             <td class="color_status <?php echo $overdue; ?>">
-                              <p class="name">
-                                <!-- <a href="tel:<?php //echo $value['phone']?>">
-                                  <img src="<?php //echo $config['site_home'] ?>img/call.png" height="25px"/>
-                                </a> -->
+                              <p class="name overdue_status">
+                                <?php echo $overdue; ?>
+                              </p>
                             </td>
                             <td>
                               <p class="name">
@@ -154,9 +153,15 @@
                               </a></p>
                             </td>
                             <td>
-                              <p class="image-icon"><a href="<?php $config['site_home']?>delete_donor.php?network_id=<?php echo $value['id'] ?>">
-                                <img src="<?php echo $config['site_home'] ?>img/delete.png" height="15px"/>
-                              </a></p>
+                              <p class="image-icon">
+                                <a title="Delete Donor" href="<?php $config['site_home']?>update_status.php?action=delete&network_id=<?php echo $value['id'] ?>">
+                                  <img src="<?php echo $config['site_home'] ?>img/delete.png" height="15px" alt="Delete Donor"/>
+                                </a>
+                                &nbsp;
+                                <a title="Donor Disagreed" href="<?php $config['site_home']?>update_status.php?action=disagreed&network_id=<?php echo $value['id'] ?>">
+                                  <img src="<?php echo $config['site_home'] ?>img/disagree.png" height="18px" alt="Donor Disagreed"/>
+                                </a>
+                              </p>
                             </td>
                           </tr>
                         <?php

@@ -20,8 +20,37 @@
 --   donut_network_id
 --   name
 --   value
---   data
+--   datamysqmy
 --   added_on
+
+
+
+SELECT user.name AS Volunteer_Name,
+	user.email AS Volunteer_Email,
+	user.user_type AS Volunteer_User_Type,
+	SUM(DD.amount) AS Amount_Donutted,
+	COUNT(DD.Donor_id) AS Number_Of_Donors,
+	UG2018.role as 'Role 2018',
+	UG2017.role as 'Role 2017'
+FROM User user
+LEFT JOIN Donut_Donation DD on user.id=DD.fundraiser_user_id
+LEFT JOIN Donut_Donor DDR on DD.Donor_id=DDR.id
+LEFT JOIN (
+  SELECT UG.user_id as user_id, GROUP_CONCAT(G.name) as role
+  FROM UserGroup UG
+  INNER JOIN `Group` G ON G.id = UG.group_id
+	WHERE UG.year = 2018
+	GROUP BY UG.user_id
+) UG2018 ON UG2018.user_id = user.id
+LEFT JOIN (
+  SELECT UG.user_id as user_id, GROUP_CONCAT(G.name) as role
+  FROM UserGroup UG
+  INNER JOIN `Group` G ON G.id = UG.group_id
+	WHERE UG.year = 2017
+	GROUP BY UG.user_id
+) UG2017 ON UG2017.user_id = user.id
+WHERE DD.added_on>='2017-08-01'
+GROUP BY  user.name,user.email,user.user_type order by SUM(DD.amount) DESC
 
 
 CREATE TABLE IF NOT EXISTS `Donut_Network` (

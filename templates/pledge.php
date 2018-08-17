@@ -75,10 +75,44 @@ $time =  date('Y-m-d H:i:s');
 
                 <p class="form-label">Pledged Amount <span class="required">*</span></p>
                 <input type="text" name="pledged_amount" onchange="{req(this);}" placeholder="" required value="<?php echo $network_info['pledged_amount']; ?>"/>
-
+                <p class="comment">Note: In case of NACH Donations, enter the monthly pledged amount</p>
                 <hr>
 
-                <div class="hidden_div nach cash-cheque" <?php echo $nach_display;  echo $cash_display?> >
+                <div class="hidden_div nach" <?php echo $nach_display;  echo $cash_display?> >
+
+                  <p class="form-label">NACH Duration <span class="required">*</span> </p>
+                  <?php echo create_select($nach_duration, 'nach_duration',$network_info['collection_by']) ?>
+
+                  <p class="form-label">Form Collection <span class="required">*</span> </p>
+                  <?php echo create_select($collection, 'collection_by',$network_info['collection_by']) ?>
+
+                  <p class="form-label">Donor Email <span class="required">*</span></p>
+                  <input type="email" name="donor_email" onchange="req(this);" placeholder="roxxxx@xxxx.com" value="<?php echo $network_info['email']; ?>"/>
+
+                  <?php
+                    $address = '';
+                    $pin     = '';
+                    if($network_info['address']!=""){
+                      $value = explode(' PIN: ',$network_info['address']);
+                      $address = $value[0];
+                      $pin     = $value[1];
+                    }
+                  ?>
+
+                  <p class="form-label">Donor Address <span class="required">*</span></p>
+                  <input type="text" name="donor_address" placeholder="Enter Donor Address"  value="<?php echo $address; ?>"/><br>
+
+                  <p class="form-label">Donor Pin Code <span class="required">*</span></p>
+                  <input type="text" name="donor_pincode" placeholder="Enter Donor Pin Code"  value="<?php echo $pin; ?>" /><br>
+
+                  <p class="form-label">Collection Date <span class="required">*</span></p>
+                  <input type="date" name="collect_on" min="<?php echo date('Y-m-d');?>" value="<?php
+                      if($network_info['collect_on']!=NULL)
+                      echo date('Y-m-d',strtotime($network_info['collect_on']));
+                  ?>"/><br>
+                </div>
+
+                <div class="hidden_div cash-cheque" <?php echo $nach_display;  echo $cash_display?> >
                   <p class="form-label">Form Collection <span class="required">*</span> </p>
                   <?php echo create_select($collection, 'collection_by',$network_info['collection_by']) ?>
 
@@ -121,8 +155,7 @@ $time =  date('Y-m-d H:i:s');
 
 
                 <div class="center">
-                  <input type="submit" name="submit" class="action-button" value="Save"/>
-                  <input type="submit" name="submit" class="action-button" value="Save & Add New"/>
+                  <input type="submit" name="submit" class="action-button" value="Save Pledge"/>
                 </div>
             </fieldset>
 

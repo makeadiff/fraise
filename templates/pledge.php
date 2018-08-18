@@ -87,7 +87,7 @@ $form_status = true;
                 <div class="hidden_div nach" <?php echo $nach_display;?> >
 
                   <p class="form-label">NACH Duration <span class="required">*</span> </p>
-                  <?php echo create_select($nach_duration, 'nach_duration',$network_info['collection_by']) ?>
+                  <?php echo create_select($nach_duration, 'nach_duration',$network_info['nach_duration']) ?>
 
                   <p class="form-label">Form Collection <span class="required">*</span> </p>
 

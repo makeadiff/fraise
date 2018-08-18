@@ -9,7 +9,9 @@ $time =  date('Y-m-d H:i:s');
 // else
 //   $form_status = true;
 
-  $form_status = true;
+// dump($network_info);
+$form_status = true;
+
 ?>
 
 
@@ -74,20 +76,35 @@ $time =  date('Y-m-d H:i:s');
                 <input type='text' name="user_id" class="hidden" value= "<?php echo $user['id'] ?>"/>
 
                 <p class="form-label">Pledged Amount <span class="required">*</span></p>
+
+                <div class="hidden_div nach" <?php echo $nach_display;?> >
+                    <p class="note">Enter Monthly Pledged Amount for NACH Donations</p>
+                </div>
                 <input type="text" name="pledged_amount" onchange="{req(this);}" placeholder="" required value="<?php echo $network_info['pledged_amount']; ?>"/>
-                <p class="comment">Note: In case of NACH Donations, enter the monthly pledged amount</p>
+
                 <hr>
 
-                <div class="hidden_div nach" <?php echo $nach_display;  echo $cash_display?> >
+                <div class="hidden_div nach" <?php echo $nach_display;?> >
 
                   <p class="form-label">NACH Duration <span class="required">*</span> </p>
                   <?php echo create_select($nach_duration, 'nach_duration',$network_info['collection_by']) ?>
 
                   <p class="form-label">Form Collection <span class="required">*</span> </p>
+
+                </div>
+
+                <div class="hidden_div cash-cheque" <?php echo $cash_display?> >
+                  <p class="form-label">Cash/Cheque Collection <span class="required">*</span> </p>
+
+                </div>
+
+                <div class="hidden_div nach cash-cheque" <?php echo $cash_display; echo $nach_display?> >
+
                   <?php echo create_select($collection, 'collection_by',$network_info['collection_by']) ?>
 
                   <p class="form-label">Donor Email <span class="required">*</span></p>
                   <input type="email" name="donor_email" onchange="req(this);" placeholder="roxxxx@xxxx.com" value="<?php echo $network_info['email']; ?>"/>
+                  <p class="note">Receipts will be sent to the Email ID mentioned above</p>
 
                   <?php
                     $address = '';
@@ -110,38 +127,8 @@ $time =  date('Y-m-d H:i:s');
                       if($network_info['collect_on']!=NULL)
                       echo date('Y-m-d',strtotime($network_info['collect_on']));
                   ?>"/><br>
+
                 </div>
-
-                <div class="hidden_div cash-cheque" <?php echo $nach_display;  echo $cash_display?> >
-                  <p class="form-label">Form Collection <span class="required">*</span> </p>
-                  <?php echo create_select($collection, 'collection_by',$network_info['collection_by']) ?>
-
-                  <p class="form-label">Donor Email <span class="required">*</span></p>
-                  <input type="email" name="donor_email" onchange="req(this);" placeholder="roxxxx@xxxx.com" value="<?php echo $network_info['email']; ?>"/>
-
-                  <?php
-                    $address = '';
-                    $pin     = '';
-                    if($network_info['address']!=""){
-                      $value = explode(' PIN: ',$network_info['address']);
-                      $address = $value[0];
-                      $pin     = $value[1];
-                    }
-                  ?>
-
-                  <p class="form-label">Donor Address <span class="required">*</span></p>
-                  <input type="text" name="donor_address" placeholder="Enter Donor Address"  value="<?php echo $address; ?>"/><br>
-
-                  <p class="form-label">Donor Pin Code <span class="required">*</span></p>
-                  <input type="text" name="donor_pincode" placeholder="Enter Donor Pin Code"  value="<?php echo $pin; ?>" /><br>
-
-                  <p class="form-label">Collection Date <span class="required">*</span></p>
-                  <input type="date" name="collect_on" min="<?php echo date('Y-m-d');?>" value="<?php
-                      if($network_info['collect_on']!=NULL)
-                      echo date('Y-m-d',strtotime($network_info['collect_on']));
-                  ?>"/><br>
-                </div>
-
 
                 <div class="hidden_div online" <?php echo $online_display;?>>
 

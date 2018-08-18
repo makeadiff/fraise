@@ -18,8 +18,8 @@
           `relationship` ENUM ('parent','sibling','acquaintance','friend','relative','other') DEFAULT 'parent' NULL,
           `donor_status` ENUM ('lead','pledged','disagreed','donated') DEFAULT 'lead'  NOT NULL,
           `pledged_amount` VARCHAR (100)    NULL,
-          `pledge_type` ENUM ('nach','cash/cheque','online','other') DEFAULT NULL  NULL,
-          `nach_duration` INT(3) NULL,
+          `pledge_type` ENUM ('nach','cash-cheque','online','other') DEFAULT NULL  NULL,
+          `nach_duration` VARCHAR(3) NULL,
           `collection_by` ENUM ('self','handover_to_mad') DEFAULT NULL   NULL,
           `address` MEDIUMTEXT   NULL,
           `added_by_user_id` INT (11)  unsigned NOT NULL,
@@ -44,7 +44,7 @@
         ) DEFAULT CHARSET=utf8 ;
       ");
 
-      // ALTER TABLE `Donut_Network` ADD `nach_duration` INT(3) NULL AFTER `pledge_type`;
+      // ALTER TABLE `Donut_Network` ADD `nach_duration` VARCHAR(3) NULL AFTER `pledge_type`;
 
   	}
 

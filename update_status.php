@@ -11,6 +11,10 @@
       $fraise->update_status($_GET['network_id'],$_GET['action']);
       header('location: '.$config['site_home'].'index.php');
     }
+    if($_GET['action']=='collected'){
+      $fraise->update_status($_GET['network_id'],$_GET['action']);
+      header('location: '.$config['site_home'].'index.php');
+    }
   }
   else{
     header('location: '.$config['site_home'].'index.php');

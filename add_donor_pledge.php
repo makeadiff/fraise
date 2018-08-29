@@ -8,7 +8,7 @@
   if(isset($_POST['network_id'])) $id = $_POST['network_id'];
   if(isset($_POST['pledge_type']))  $data['pledge_type'] = $_POST['pledge_type'];
   if(isset($_POST['pledged_amount']))  {
-    if($_POST['pledge_type']=='nach' && $_POST['nach_duration']!='12+'){
+    if($_POST['pledge_type']=='nach'){
       $data['pledged_amount'] = $_POST['pledged_amount']*str_replace('+','',$_POST['nach_duration']);
     }
     else{

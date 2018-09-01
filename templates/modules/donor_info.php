@@ -47,6 +47,15 @@
         </a>
       <?php
         }
+        else if($value['donor_status']=='donated'){
+      ?>
+        <a href="">
+          <button type="button" disabled id="" class="btn btn-default">
+            Add to Donut
+          </button>
+        </a>
+      <?php
+        }
         else if($value['donor_status']=='pledged'){
       ?>
         <a href="">
@@ -80,11 +89,11 @@
               <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> &nbsp; Donated
             </a>
           </li>
-          <li>
-            <a href="<?php $config['site_home']?>update_status.php?action=handover_to_mad&network_id=<?php echo $value['id'] ?>">
+          <!-- <li>
+            <a href="<?php //$config['site_home']?>update_status.php?action=handover_to_mad&network_id=<?php //echo $value['id'] ?>">
               Handover to MAD
             </a>
-          </li>
+          </li> -->
         <?php
           }
         ?>
@@ -99,14 +108,14 @@
         <?php
           }
         ?>
+        <li>
+          <a title="Delete Donor" href="<?php $config['site_home']?>update_status.php?action=delete&network_id=<?php echo $value['id'] ?>">
+            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> &nbsp; Delete
+          </a>
+        </li>
         <?php
          if($value['donor_status']!='donated'){
         ?>
-          <li>
-            <a title="Delete Donor" href="<?php $config['site_home']?>update_status.php?action=delete&network_id=<?php echo $value['id'] ?>">
-              <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> &nbsp; Delete
-            </a>
-          </li>
           <li>
             <a title="Donor Disagreed" href="<?php $config['site_home']?>update_status.php?action=disagreed&network_id=<?php echo $value['id'] ?>">
               <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span> &nbsp;
@@ -126,6 +135,7 @@
         <?php
           }
         ?>
+
       </ul>
     </div>
   </div>

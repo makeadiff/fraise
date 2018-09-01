@@ -247,13 +247,13 @@ $('.pledge').click(function(){
 function submit_form(){
 	var form = $("#msform");
 	form_validate(form);
-	console.log(form.valid());
-	return false;
-	// if (form.valid() == true){
-	// 	return true;
-	// }else{
-	// 	return false;
-	// }
+	// console.log(form.valid());
+	// return false;
+	if (form.valid() == true){
+		return true;
+	}else{
+		return false;
+	}
 }
 
 function validate_upload(){

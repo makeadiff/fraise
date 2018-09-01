@@ -93,12 +93,25 @@
       return $result[0];
     }
 
-    function get_network_info($user_id){
+    function get_network_info($user_id,$status = null,$collection_by = null){
       $query = 'SELECT N.*,ND.name as data_name, ND.value as data_value, ND.data as data_data
                 FROM Donut_Network N
                 LEFT JOIN Donut_NetworkData ND ON ND.donut_network_id = N.id
-                WHERE N.added_by_user_id='.$user_id.'
-                GROUP BY N.id
+                WHERE N.added_by_user_id='.$user_id;
+
+      if($status!=''){
+        $query .= ' AND N.donor_status="'.$status.'"';
+      }
+
+      // if($status='pledged'){
+      //   $query .= ' AND N.collection_by="self"';
+      // }
+
+      if($collection_by!=''){
+        $query .= ' AND N.collection_by="'.$collection_by.'"';
+      }
+
+      $query .= ' GROUP BY N.id
                 ORDER BY FIELD(N.donor_status,"lead","pledged","donated","disagreed") ASC,
                       N.collect_on ASC
                 ';
@@ -109,8 +122,8 @@
     function get_total_pledge($user_id){
       $query = 'SELECT SUM(pledged_amount)
                 FROM Donut_Network N
-                WHERE N.added_by_user_id='.$user_id.'
-                ';
+                WHERE N.added_by_user_id='.$user_id;
+
 
       $result = $this->sql->getOne($query);
       return $result;
@@ -140,6 +153,11 @@
 
     function update_status($id,$status){
       $this->sql->update('Donut_Network',array('donor_status'=>$status),'id='.$id);
+      return $id;
+    }
+
+    function update_collection($id,$status){
+      $this->sql->update('Donut_Network',array('collection_by'=>$status),'id='.$id);
       return $id;
     }
 

@@ -57,10 +57,10 @@ $time =  date('Y-m-d H:i:s');
                 <input type='text' name="user_id" class="hidden" value= "<?php echo $user['id'] ?>"/>
 
                 <p class="form-label">Donor Full Name <span class="required">*</span></p>
-                <input type="text" name="donor_name" onchange="req(this);" required="" value="<?php echo form_value($network_info,'name');?>"/>
+                <input type="text" name="donor_name" onchange="req(this);" minlength="4" required="" value="<?php echo form_value($network_info,'name');?>"/>
 
                 <p class="form-label">Donor Phone <span class="required">*</span></p>
-                <input type="text" name="donor_phone" onchange="{req(this); validphone(this);}" placeholder="Eg. 81XXXXXX03 or +1-8XX-XXX-XX03" required="" value="<?php echo form_value($network_info,'phone');?>"/>
+                <input type="text" id="donor_phone" name="donor_phone" onchange="{req(this); validphone(this);}" placeholder="Eg. 81XXXXXX03 or +1-8XX-XXX-XX03" required="" value="<?php echo form_value($network_info,'phone');?>"/>
 
                 <p class="form-label">Donor Email</p>
                 <input type="email" name="donor_email" onchange="req(this);" placeholder="roxxxx@xxxx.com" value="<?php echo form_value($network_info,'email');?>"/>

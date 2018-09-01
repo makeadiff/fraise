@@ -89,16 +89,25 @@
 
     </body>
 
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
+    <script src='https://code.jquery.com/ui/1.12.1/jquery-ui.js'></script>
     <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js'></script>
-    <script src='https://code.jquery.com/jquery-1.10.2.js'></script>
-    <script src='https://code.jquery.com/ui/1.10.4/jquery-ui.js'></script>
     <script  src="js/index.js"></script>
     <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
 
-    <script>
-    </script>
+
+    <?php if(isset($pincodes)){ ?>
+      <script type="text/javascript">
+        $(function() {
+          var availableTags =  <?php echo json_encode($pincodes); ?>;
+          $( "#pincode_ac" ).autocomplete({
+            source: availableTags,
+            autoFocus:true
+          });
+        });
+      </script>
+    <?php } ?>
 
 
 </body>

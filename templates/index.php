@@ -1,5 +1,11 @@
 
 <!-- MultiStep Form -->
+
+<?php
+
+?>
+
+
 <div class="row">
     <div class="form-class col-md-6 col-md-offset-3">
         <form id="msform" action="preview.php" method="POST" onsubmit="submit_form()">
@@ -29,7 +35,7 @@
               <!-- <p class="form-label">What do you want to do?</p> -->
 
               <div class="row">
-                <div class="add_donor col-md-4 col-md-offset-4">
+                <div class="add_donor col-md-6 col-md-offset-3">
                   <a href="./add_donor.php">
                     <button type="button" class="add-button btn btn-default btn-lg">
                       <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> <br>Add Donor
@@ -40,136 +46,59 @@
               <?php
                 if(!empty($network_data)){
               ?>
+              <hr>
               <div class="row">
                 <ul class="nav nav-tabs">
-                  <li role="presentation" class="active"><a href="#my_network" data-toggle="tab">My Network</a></li>
-                  <li role="presentation"><a data-toggle="tab" href="#pledged">Pending Collection</a></li>
-                  <!-- <li role="presentation"><a data-toggle="tab" href="#tab3default">Pending Collection</a></li>
-                  <li role="presentation"><a data-toggle="tab" href="#tab3default">Pending Collection</a></li> -->
+                  <li role="presentation" class="active"><a href="#my_network" data-toggle="tab">Donors to Call</a></li>
+                  <li role="presentation"><a data-toggle="tab" href="#pledged">Pledges to be Collected</a></li>
+                  <li role="presentation"><a data-toggle="tab" href="#donated">Pledges Collected</a></li>
+                  <li role="presentation"><a data-toggle="tab" href="#handover">Handed Over to MAD</a></li>
                 </ul>
 
                 <div class="tab-content">
                     <!-- My Network -->
                     <div class="tab-pane fade in active" id="my_network">
-                      <table width="100%">
-                        <thead>
-                          <tr class="table_header">
-                            <td width="10%"></td>
-                            <td width="50%">Name</td>
-                            <td width="25%">Pledge Status</td>
-                            <td width="15%">Actions</td>
-                          </tr>
-                        </thead>
                         <?php
-                          foreach ($network_data as $key => $value) {
-                        ?>
-                          <tr class="network_entries <?php echo $value['donor_status']; ?>">
-                            <td class="color_status">
-                              <p class="name">
-                                <a href="tel:<?php echo $value['phone']?>">
-                                  <img src="<?php echo $config['site_home'] ?>img/call.png" height="25px"/>
-                                </a>
-                            </td>
-                            <td>
-                              <p class="name">
-                                <a href="<?php echo $config['site_home']?>/add_donor.php?network_id=<?php echo $value['id'];?>"><?php echo $value['name'] ?></a>
-                              </p>
-                            </td>
-                            <td>
-                              <p class="action"><a href="<?php echo $config['site_home']?>pledge.php?network_id=<?php echo $value['id'] ?>">
-                                <?php
-                                  if($value['pledged_amount']!=''){
-                                    echo '&#8377;'.$value['pledged_amount'];
-                                  }
-                                  else{
-                                ?>
-                                Pledge
-                                <?php
-                                  }
-                                ?>
-                              </a></p>
-                            </td>
-                            <td>
-                              <p class="image-icon">
-                                <a title="Delete Donor" href="<?php $config['site_home']?>update_status.php?action=delete&network_id=<?php echo $value['id'] ?>">
-                                  <img src="<?php echo $config['site_home'] ?>img/delete.png" height="15px" alt="Delete Donor"/>
-                                </a>
-                                &nbsp;
-                                <a title="Donor Disagreed" href="<?php $config['site_home']?>update_status.php?action=disagreed&network_id=<?php echo $value['id'] ?>">
-                                  <img src="<?php echo $config['site_home'] ?>img/disagree.png" height="18px" alt="Donor Disagreed"/>
-                                </a>
-                              </p>
-                            </td>
-                          </tr>
-                        <?php
+                          if(empty($leads)){
+                            echo $nodata;
+                          }
+                          foreach ($leads as $key => $value) {
+                            include './templates/modules/donor_info.php';
                           }
                         ?>
-                      </table>
                     </div>
                     <!-- Pending Collection -->
-                    <div class="tab-pane fade" id="pledged">
-                      <table width="100%">
-                        <thead>
-                          <tr class="table_header">
-                            <td width="10%"></td>
-                            <td width="50%">Name</td>
-                            <td width="25%">Amount Pledged</td>
-                            <td width="15%">Actions</td>
-                          </tr>
-                        </thead>
-                        <?php
-                          foreach ($network_data as $key => $value) {
-                            if($value['donor_status']=='pledged'){
-                              if($value['collect_on']<date('Y-m-d H:i:s')){
-                                $overdue = 'overdue';
-                              }
-                              else{
-                                $overdue = '';
-                              }
-                        ?>
-                          <tr class="network_entries <?php echo $value['donor_status']; ?>">
-                            <td class="color_status <?php echo $overdue; ?>">
-                              <p class="name overdue_status">
-                                <?php echo $overdue; ?>
-                              </p>
-                            </td>
-                            <td>
-                              <p class="name">
-                                <a href="<?php echo $config['site_home']?>/add_donor.php?network_id=<?php echo $value['id'];?>"><?php echo $value['name'] ?></a>
-                              </p>
-                            </td>
-                            <td>
-                              <p class="action <?php echo $overdue; ?>"><a href="<?php echo $config['site_home']?>pledge.php?network_id=<?php echo $value['id'] ?>">
-                                <?php
-                                  if($value['pledged_amount']!=''){
-                                    echo '&#8377;'.$value['pledged_amount'];
-                                  }
-                                  else{
-                                ?>
-                                Pledge
-                                <?php
-                                  }
-                                ?>
-                              </a></p>
-                            </td>
-                            <td>
-                              <p class="image-icon">
-                                <a title="Delete Donor" href="<?php $config['site_home']?>update_status.php?action=delete&network_id=<?php echo $value['id'] ?>">
-                                  <img src="<?php echo $config['site_home'] ?>img/delete.png" height="15px" alt="Delete Donor"/>
-                                </a>
-                                &nbsp;
-                                <a title="Donor Disagreed" href="<?php $config['site_home']?>update_status.php?action=disagreed&network_id=<?php echo $value['id'] ?>">
-                                  <img src="<?php echo $config['site_home'] ?>img/disagree.png" height="18px" alt="Donor Disagreed"/>
-                                </a>
-                              </p>
-                            </td>
-                          </tr>
-                        <?php
-                            }
-                          }
-                        ?>
+                    <div class="tab-pane fade in" id="pledged">
+                      <?php
+                        if(empty($pledged)){
+                          echo $nodata;
+                        }
+                        foreach ($pledged as $key => $value) {
+                          include './templates/modules/donor_info.php';
+                        }
+                      ?>
                     </div>
-                    <!-- <div class="tab-pane fade" id="tab3default">Default 3</div> -->
+                    <!-- Collected -->
+                    <div class="tab-pane fade in" id="donated">
+                      <?php
+                        if(empty($donated)){
+                          echo $nodata;
+                        }
+                        foreach ($donated as $key => $value) {
+                          include './templates/modules/donor_info.php';
+                        }
+                      ?>
+                    </div>
+                    <div class="tab-pane fade in" id="handover">
+                      <?php
+                        if(empty($handover)){
+                          echo $nodata;
+                        }
+                        foreach ($handover as $key => $value) {
+                          include './templates/modules/donor_info.php';
+                        }
+                      ?>
+                    </div>
                 </div>
               </div>
               <?php
@@ -181,3 +110,18 @@
         </form>
     </div>
 </div>
+
+
+<script src="https://www.gstatic.com/firebasejs/5.4.0/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyBVlOLflYMAYMMXTXwLIBrX6CaJe_39IPI",
+    authDomain: "fraise-ef296.firebaseapp.com",
+    databaseURL: "https://fraise-ef296.firebaseio.com",
+    projectId: "fraise-ef296",
+    storageBucket: "fraise-ef296.appspot.com",
+    messagingSenderId: "451577737862"
+  };
+  firebase.initializeApp(config);
+</script>

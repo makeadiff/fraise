@@ -66,6 +66,12 @@
     'handover_to_mad' => 'Handover collection to MAD',
   ];
 
+  $nodata = '<p class="name center">
+              <span class="error-icon glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+              <br/>
+              No Data.
+            </p>';
+
   $user = $sql->getAll($query_user);
   $user = $user[0];
 
@@ -78,12 +84,29 @@
 
   // ---------------------- Functions -------------------------
 
+  function getPinCodeFromSheet($sheet_url) {
+  	global $common;
+  	require 'includes/classes/ParseCSV.php';
+  	$sheet = new ParseCSV($sheet_url);
+
+    $pincodes = array();
+
+    foreach ($sheet as $data) {
+      if(is_numeric($data['A']))
+        $pincodes[] = $data['A'];
+    }
+
+    $pincodes = array_unique($pincodes);
+    // unset($pincodes[0]);
+  	return $pincodes;
+  }
+
   function create_select($array,$name,$response=null, $req = false){
 
     if($req)
-      $output = '<select name='.$name.' id="select" required>';
+      $output = '<select name="'.$name.'" id="'.$name.'" required>';
     else
-      $output = '<select name='.$name.' id="select">';
+      $output = '<select name="'.$name.'" id="'.$name.'">';
 
     foreach ($array as $key => $value) {
       if($key==$response){

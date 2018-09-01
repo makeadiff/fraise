@@ -109,7 +109,7 @@ label{
   text-align: left !important;
   font-weight: 400;
   font-size: 12px;
-  font-style: italic;
+  color: #039BE5;
 }
 
 #msform p.form-label.link{
@@ -497,6 +497,36 @@ select {
   button.add-button{
     margin-bottom: 20px;
   }
+
+  .nav-tabs > li{
+    width: 25%;
+    overflow-x: hidden;
+    font-size: 12px;
+    text-align: left;
+  }
+
+  .nav-tabs > li > a{
+    padding: 5px;
+    margin: 0;
+    min-height: 75px !important;
+  }
+
+
+  /* .nav-tabs > li.active{
+    width: 50%;
+    overflow-x: hidden;
+    font-size: 11px;
+  } */
+}
+
+.nav-tabs > li{
+  width: 25%;
+}
+
+.nav-tabs > li > a{
+  padding: 10px;
+  margin: 0;
+  min-height: 60px;
 }
 
 .indented{
@@ -526,14 +556,7 @@ p.name, p.action,p.image-icon{
   font-size: 14px;
   padding: 10px 0 0 0;
 }
-/*
-p.name{
 
-} */
-/*
-div.name-list p.phone{
-  font-size: 10px;
-} */
 
 input.radio-button-left{
   width: 30px !important;
@@ -573,16 +596,16 @@ button.add-button{
 /* -----------Table Style------------- */
 
 tr.table_header td{
-  background: #37474F;
-  color: #FFF;
-  padding: 5px;
+  /* background: #37474F; */
+  /* color: #FFF; */
+  /* padding: 5px; */
 }
 
 tr.network_entries{
   /* background: #FAFAFA; */
   padding: 10px 5px;
-  border-bottom: #FFF solid 2px;
-  border-top: #FFF solid 2px;
+  /* border-bottom: #FFF solid 2px; */
+  /* border-top: #FFF solid 2px; */
 }
 
 tr.network_entries td{
@@ -590,7 +613,7 @@ tr.network_entries td{
 }
 
 tr.network_entries.pledged{
-  border-bottom: 3px solid #FFC107;
+  /* border-bottom: 3px solid #FFC107; */
 }
 
 td.color_status{
@@ -598,22 +621,58 @@ td.color_status{
 }
 
 .pledged td.color_status{
-  background: #F1F1F1;
+  /* background: #F1F1F1; */
 }
 
 .pledged td.color_status.overdue{
-  background: #FF5722;
+  /* background: #FF5722; */
 }
 
 tr.network_entries.disagreed{
-  background: #FFEBEE;
+  /* background: #FFEBEE; */
 }
 
 tr.network_entries.donated{
-  background: #F1F8E9;
+  /* background: #F1F8E9; */
 }
 
+/* Actions */
 
+span.actions{
+  font-size: 10px;
+  padding: 2px 5px;
+  border-radius: 10px;
+  background: #EEE;
+  color: #FFF;
+  margin-bottom: 5px;
+  margin-right: 5px;
+}
+
+span.actions.collect{
+  background: #8BC34A;
+}
+
+span.actions.delete{
+  background: #f44336;
+}
+
+span.actions.disagree{
+  background: #FF9800;
+}
+
+div.donor_view{
+  padding: 10px;
+  box-shadow: 0 0 4px #CCC;
+  margin-bottom: 15px;
+  border-radius: 5px;
+}
+
+span.error-icon{
+  font-size: 35px;
+  color: #FFCC80;
+  margin-bottom: 10px;
+
+}
 
 /* ----------Navbar Style------------ */
 
@@ -623,4 +682,21 @@ tr.network_entries.donated{
 
 nav{
   margin-bottom: 30px;
+}
+
+/* Widget CSS Update */
+
+.ui-widget-content{
+  background: #FAFAFA !important;
+  background-image: none;
+  color: #333132;
+}
+
+.ui-widget{
+  font-family: 'Raleway',sans-serif !important;
+  padding: 10px;
+}
+
+.ui-menu-item{
+  padding: 2px !important;
 }

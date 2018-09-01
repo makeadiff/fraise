@@ -21,7 +21,7 @@ $form_status = true;
 
 <div class="row">
     <div class="form-class col-md-6 col-md-offset-3">
-        <form id="msform" action="add_donor_pledge.php" method="POST" onsubmit="submit_form()">
+        <form id="msform" action="add_donor_pledge.php" method="POST" onsubmit="return submit_form()">
           <!-- progressbar -->
           <?php if($form_status){ ?>
 
@@ -30,8 +30,6 @@ $form_status = true;
             <fieldset>
 
                 <!-- Hidden Fields -->
-                <input type="hidden" name="network_id" value="<?php echo $network_info['id'] ?>">
-                <input type="hidden" name="pledge_type" id="pledge_type" value="<?php echo $network_info['pledge_type'] ?>">
 
                 <?php
 
@@ -70,17 +68,22 @@ $form_status = true;
                   </div>
                 </div>
                 <hr>
+                
+                <input type="hidden" name="network_id" value="<?php echo $network_info['id'] ?>">
+                <input type="hidden" name="pledge_type" required id="pledge_type" value="<?php echo $network_info['pledge_type'] ?>">
+
+
 
                 <p class="required-text">*Required</p>
 
                 <input type='text' name="user_id" class="hidden" value= "<?php echo $user['id'] ?>"/>
 
-                <p class="form-label">Pledged Amount <span class="required">*</span></p>
 
+                <p class="form-label">Pledged Amount <span class="required">*</span></p>
                 <div class="hidden_div nach" <?php echo $nach_display;?> >
                     <p class="note">Enter Monthly Pledged Amount for NACH Donations</p>
                 </div>
-                <input type="text" name="pledged_amount" onchange="{req(this);}" placeholder="" required value="<?php echo $network_info['pledged_amount']; ?>"/>
+                <input type="text" id="pledged_amount" name="pledged_amount" onchange="{req(this);}" placeholder="" required value="<?php echo $network_info['pledged_amount']; ?>"/>
 
                 <hr>
 
@@ -103,7 +106,7 @@ $form_status = true;
                   <?php echo create_select($collection, 'collection_by',$network_info['collection_by']) ?>
 
                   <p class="form-label">Donor Email <span class="required">*</span></p>
-                  <input type="email" name="donor_email" onchange="req(this);" placeholder="roxxxx@xxxx.com" value="<?php echo $network_info['email']; ?>"/>
+                  <input type="email" id="donor_email" name="donor_email" onchange="req(this);" placeholder="roxxxx@xxxx.com" value="<?php echo $network_info['email']; ?>"/>
                   <p class="note">Receipts will be sent to the Email ID mentioned above</p>
 
                   <?php
@@ -117,13 +120,13 @@ $form_status = true;
                   ?>
 
                   <p class="form-label">Donor Address <span class="required">*</span></p>
-                  <input type="text" name="donor_address" placeholder="Enter Donor Address"  value="<?php echo $address; ?>"/><br>
+                  <input type="text" id="donor_address" name="donor_address" placeholder="Enter Donor Address"  value="<?php echo $address; ?>"/><br>
 
                   <p class="form-label">Donor Pin Code <span class="required">*</span></p>
-                  <input type="text" name="donor_pincode" placeholder="Enter Donor Pin Code"  value="<?php echo $pin; ?>" /><br>
+                  <input type="text" id="pincode_ac" name="donor_pincode" placeholder="Enter Donor Pin Code" maxlength="6"  value="<?php echo $pin; ?>" /><br>
 
                   <p class="form-label">Collection Date <span class="required">*</span></p>
-                  <input type="date" name="collect_on" min="<?php echo date('Y-m-d');?>" value="<?php
+                  <input type="date" id="collect_on" name="collect_on" min="<?php echo date('Y-m-d');?>" value="<?php
                       if($network_info['collect_on']!=NULL)
                       echo date('Y-m-d',strtotime($network_info['collect_on']));
                   ?>"/><br>
@@ -133,14 +136,14 @@ $form_status = true;
                 <div class="hidden_div online" <?php echo $online_display;?>>
 
                   <p class="form-label">Follow Up Date <span class="required">*</span></p>
-                  <input type="date" name="follow_up_on" min="<?php echo date('Y-m-d');?>" value="<?php
+                  <input type="date" id="follow_up_on" name="follow_up_on" min="<?php echo date('Y-m-d');?>" value="<?php
                       if($network_info['follow_up_on']!=NULL)
                       echo date('Y-m-d',strtotime($network_info['follow_up_on']));
                   ?>"/><br>
 
                 </div>
 
-
+                <br/>
                 <div class="center">
                   <input type="submit" name="submit" class="action-button" value="Save Pledge"/>
                 </div>
@@ -162,5 +165,3 @@ $form_status = true;
         </form>
     </div>
 </div>
-
-        <!-- /.MultiStep Form -->

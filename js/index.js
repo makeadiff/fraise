@@ -25,7 +25,25 @@ function form_validate(form){
 			return this.optional(element) || /^.+\s\/\s\d+$/i.test(value);
 		}, "Enter a valid Volunteer Name");
 
+	$.validator.addMethod('collection_type',
+		function(value,element) {
+			var parent = $('#msform');
+			var collection = $(parent).find('select#collection_by').val();
+			if(collection=='handover_to_mad' && value.length<6) return false;
+			else return true;
+		},"");
+
+	$.validator.addMethod('self_colletion',
+		function(value,element) {
+			var parent = $('#msform');
+			var collection = $(parent).find('select#collection_by').val();
+			var pledge_type = $(parent).find('input#pledge_type').val();
+			if(collection== 'self' && pledge_type!= 'online' && value=='') return false;
+			else return true;
+		},"");
+
 	form.validate({
+		ignore:[],
 		rules:{
 			user_name: {
 				required: true,
@@ -42,37 +60,34 @@ function form_validate(form){
 				required:true,
 				email:true
 			},
-			recommendation1_name:{
-				minlength: 10,
-				reco_name: true
+			donor_address:{
+				collection_type:true
 			},
-			recommendation2_name:{
-				minlength: 10,
-				reco_name: true
+			donor_pincode:{
+				collection_type:true
 			},
-			recommendation3_name:{
-				minlength: 10,
-				reco_name: true
+			collect_on:{
+				self_colletion: true
+			},
+			pledge_type:{
+				required: true,
+				minlength: 4,
 			},
 		},
 		messages: {
-			user_name: {
-				required: "Name required",
+			donor_address: {
+				collection_type: "Address is REQUIRED for collections done by MAD",
 			},
-		  user_phone: {
-				required: "Enter a valid phone number",
-				maxlength: "Enter a valid phone number",
-				minlength: "Enter a valid phone number",
+			donor_pincode: {
+				collection_type: "Pincode is REQUIRED for collections done by MAD",
 			},
-			recommendation1_name: {
-				minlength: "Enter a Valid Volunteer Name",
+			collect_on:{
+				self_colletion: "Please enter Date of Collection",
 			},
-			recommendation2_name: {
-				minlength: "Enter a Valid Volunteer Name",
+			pledge_type:{
+				required: "Please select the Type of Pledge",
+				minlength: "Please select the Type of Pledge",
 			},
-			recommendation3_name: {
-				minlength: "Enter a Valid Volunteer Name",
-			}
 		}
 	});
 }
@@ -197,6 +212,24 @@ $(".more_details").click(function(){
 });
 
 
+$('#pincode_ac,#pledged_amount').keypress(function(e){
+	var charCode = (e.which) ? e.which : e.keyCode;
+  if (charCode != 46 && charCode > 31
+    && (charCode < 48 || charCode > 57))
+     return false;
+  return true;
+});
+
+$('#donor_phone').keypress(function(e){
+	var charCode = (e.which) ? e.which : e.keyCode;
+  if (charCode != 46 && charCode != 43 && charCode != 45 && charCode != 35 && charCode > 31
+    && (charCode < 48 || charCode > 57))
+     return false;
+  return true;
+});
+
+
+
 
 $('.pledge').click(function(){
 	type = this.id;
@@ -207,16 +240,20 @@ $('.pledge').click(function(){
 	$('.pledge#'+type).addClass('active');
 	$('.hidden_div').hide();
 	$('.hidden_div.'+type).show();
+
+	$('.hidden_div.'+type+' ')
 })
 
 function submit_form(){
 	var form = $("#msform");
 	form_validate(form);
-	if (form.valid() == true){
-
-	}else{
-		return false;
-	}
+	console.log(form.valid());
+	return false;
+	// if (form.valid() == true){
+	// 	return true;
+	// }else{
+	// 	return false;
+	// }
 }
 
 function validate_upload(){

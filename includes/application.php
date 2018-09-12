@@ -1,10 +1,9 @@
 <?php
 
-  // $user_info = check_user();
-  // $user_id = $user_info['user_id'];
-  //
+  $user_info = check_user(false);
+  $user_id = $user_info['user_id'];
 
-  $user_id = $_SESSION['user_id'];
+  // $user_id = $_SESSION['user_id'];
 
   $fraise = new FRaise;
 

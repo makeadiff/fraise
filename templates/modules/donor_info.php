@@ -47,22 +47,49 @@
         </a>
       <?php
         }
-        else if($value['donor_status']=='donated'){
+        else if($value['donor_status']=='donated' || $value['donor_status']=='pledged'){
       ?>
-        <a href="">
-          <button type="button" disabled id="" class="btn btn-default">
+        <!-- <a href=""> -->
+          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Add to Donut
+            <span class="caret"></span>
           </button>
-        </a>
-      <?php
-        }
-        else if($value['donor_status']=='pledged'){
-      ?>
-        <a href="">
-          <button type="button" disabled id="" class="btn btn-default">
-            Add to Donut
-          </button>
-        </a>
+
+          <?php
+
+            $donut_info = [
+              'donor_name='.$value['name'],
+              'donor_phone='.$value['phone'],
+              'donor_email='.$value['email'],
+              'donor_city='.$value['address'],
+              'amount='.$value['pledged_amount']
+            ];
+
+            $url = implode('&',$donut_info);
+          ?>
+
+          <ul class="dropdown-menu">
+            <li>
+              <a title="Donation Collected" href="https://makeadiff.in/donut/#/add-donation/?<?php echo $url; ?>">
+                <!-- <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> &nbsp; -->
+                Cash/Cheque
+              </a>
+            </li>
+            <li>
+              <a title="Donation Collected" href="https://makeadiff.in/donut/#/add-nach-donation/?<?php echo $url; ?>">
+                <!-- <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> &nbsp; -->
+                NACH
+              </a>
+            </li>
+            <li>
+              <a title="Donation Collected" href="https://makeadiff.in/donut/#/add-online-donation/?<?php echo $url; ?>">
+                <!-- <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> &nbsp; -->
+                Online
+              </a>
+            </li>
+          </ul>
+
+        <!-- </a> -->
       <?php
         }else {
       ?>

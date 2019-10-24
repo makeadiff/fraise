@@ -228,7 +228,10 @@ $('#donor_phone').keypress(function(e){
   return true;
 });
 
-
+$('.donut-data').click(function(){
+	var donor_id = this.id;
+	alert(this.id);	
+});
 
 
 $('.pledge').click(function(){

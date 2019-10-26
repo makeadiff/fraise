@@ -11,6 +11,8 @@
 
   $query_user= "SELECT * FROM User WHERE id = ".$user_id;
 
+  setlocale(LC_MONETARY,"en_IN");  
+
   //Array of Drop Downs
 
   $relationship = [

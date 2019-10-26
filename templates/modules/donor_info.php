@@ -51,11 +51,15 @@
       ?>
         <!-- <a href=""> -->
           <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Add to Donut
+            Donut
             <span class="caret"></span>
           </button>
 
           <?php
+
+            if($value['pledge_type']=="nach"){
+              $value['pledged_amount'] = $value['pledged_amount']/str_replace("+","",$value['nach_duration']);
+            }
 
             $donut_info = [
               'donor_name='.$value['name'],

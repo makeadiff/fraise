@@ -24,8 +24,9 @@
               ?>
 
               <h2 class="fs-title">Hi, <?php echo $user['name'];?></h2>
-	            <!-- <h3 class="fs-subtitle">Please verify your personal details.</h3> -->
-              <hr>
+	            <!-- <h3 class="fs-subtitle center">
+                Total Pledged: <?php //echo money_format("%!i",$fraise->get_total_pledge($user['id']));?></h3>
+              <hr> -->
               <p class="form-label">
 
               </p>
@@ -69,6 +70,9 @@
                     </div>
                     <!-- Pending Collection -->
                     <div class="tab-pane fade in" id="pledged">
+                      <p class="note">
+                        Incase the Donation is collected, please use the <strong>"Donut"</strong> button to Quickly add the Entry to Donut.
+                      </p>
                       <?php
                         if(empty($pledged)){
                           echo $nodata;
@@ -80,6 +84,9 @@
                     </div>
                     <!-- Collected -->
                     <div class="tab-pane fade in" id="donated">
+                      <p class="note">
+                        Incase the Donation is collected, please use the <strong>"Donut"</strong> button to Quickly add the Entry to Donut.
+                      </p>
                       <?php
                         if(empty($donated)){
                           echo $nodata;
@@ -90,6 +97,9 @@
                       ?>
                     </div>
                     <div class="tab-pane fade in" id="handover">
+                      <p class="note">
+                        Incase the Donation is collected, please use the <strong>"Donut"</strong> button to Quickly add the Entry to Donut.
+                      </p>
                       <?php
                         if(empty($handover)){
                           echo $nodata;
